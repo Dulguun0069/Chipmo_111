@@ -11,7 +11,7 @@ import rfidUseCase2 from "../../assets/images/pic2.png";
 import rfidUseCase3 from "../../assets/images/pic3.png";
 import rfidUseCase4 from "../../assets/images/pic4.png";
 import rfidUseCase5 from "../../assets/images/pic5.png";
-import rfidUseCase6 from "../../assets/images/pic6.png"; // RFID tag explanation image
+import rfidUseCase6 from "../../assets/images/pic6.png"; 
 import "./AboutRFID.css";
 
 export default function AboutRFID() {
@@ -26,13 +26,14 @@ export default function AboutRFID() {
           <div className="Container1">
             <div className="Title">RFID СУУРЬ ОЙЛГОЛТ</div>
             <div className="whitetext">
-              RFID системийг ашиглахын тулд бүтээгдэхүүн бүрийг чип бүхий шошгожуулсан байх шаардлагатай...
+              RFID системийг ашиглахын тулд бүтээгдэхүүн бүрийг чип бүхий шошгожуулсан байх шаардлагатай. Антентай холбогдсон энэхүү чип нь бараа материалын төрөл бүрийн шошгонуудтай холбогдож, тухайн бүтээгдэхүүний өвөрмөц EPC буюу электрон бүтээгдэхүүний код болон бусад мэдээллийг уншж  хянах боломжтой байдаг.
             </div>
             <div className="whitetext">
-              RFID уншигч нь суурин эсвэл хөдөлгөөнт төхөөрөмж байхаас үл хамаарч...
+              RFID уншигч нь суурин эсвэл хөдөлгөөнт төхөөрөмж байхаас үл хамаарч эдгээр шошготой антенаар дамжуулан холбогдож,  хадгалагдсан мэдээллийг шошгоруу тодорхой хэмжээний энерги илгээж ажиллуулдаг ба ингэснээр  өгөгдлийг системрүү илгээх боломжтой болдог. Уншигчид дараа нь гүүр болж, шошгоны өгөгдлийг бизнесийн програмуудад ашиглах боломжтой болгодог.
             </div>
             <div className="lastwhitetext">
-              Системийн гол цөм нь хэрэглээний программ хангамж бөгөөд...
+              Системийн гол цөм нь хэрэглээний программ хангамж бөгөөд шошго, уншигч, өгөгдөл зэрэг бүх бүрэлдэхүүн хэсгүүдийг нэгтгэдэг. Энэхүү программ хангамж нь өгөгдлийг боловсруулахад чухал ач холбогдолтой бөгөөд бизнесүүдэд бараа материалыг үр дүнтэй удирдах, хянах боломжийг олгож, RFID системийн цогц үйл ажиллагааг асуудалгүй хангах боломжийг бий болгодог.
+
             </div>
           </div>
 
@@ -52,7 +53,7 @@ export default function AboutRFID() {
             </div>
           </div>
 
-          {/* ✅ RFID шошго тайлбар + зурагтай хэсэг (side-by-side layout) */}
+         
           <div className="rfid-tag-block">
             <div className="rfid-tag-image animate-fadeInRight">
               <img src={rfidUseCase} alt="RFID tag explanation" />

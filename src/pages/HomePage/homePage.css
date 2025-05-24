@@ -40,6 +40,9 @@
 
 .contactButton {
   color: #000;
+  align-items: center;
+  display : flex;
+  justify-content : center;
   text-transform: uppercase;
   cursor: pointer;
   background-color: #d9d9d9;

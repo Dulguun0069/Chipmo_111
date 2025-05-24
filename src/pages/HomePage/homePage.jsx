@@ -1,4 +1,4 @@
-// src/App.js
+
 import React from "react";  
 import "./homePage.css";
 import HorizontalCard, { HorizontalCard1 } from "../../components/HorizontalCard/horizontalCard";
@@ -33,7 +33,7 @@ export default  function HomePage() {
                     <span>CLOUD</span>
                 </div>
                 <span className="features-item">хослуулсан шийдлээр шинэчлэе!!!</span>
-                <button className="contactButton">CONTACT US</button>
+                <a href="Contact" className="contactButton">CONTACT US</a>
            </section>
            <section className="video-section">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/8TDST3b4o88?si=DTJQE-O2MSNnV9lW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -80,14 +80,14 @@ export default  function HomePage() {
             />
         </div>  
         <section className="video-section2"> 
-            <iframe width="1200" height="500" src="https://www.youtube.com/embed/8TDST3b4o88?si=DTJQE-O2MSNnV9lW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="1200" height="550" src="https://www.youtube.com/embed/moQrnj71RNM?si=KJc50kc2hZY1fuOj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </section>
         <div className="intro-card">
             <IntroductionCard icon={goal} title="Зорилго" description="Бидний эрхэм зорилго бол дэвшилтэт RFID технологийн хүчийг ашиглан бараа материалын менежментэд хувьсгал хийж, хэрэглэгчиддээ илүү их үр ашиг, үнэ цэнийг бий болгож, инновацийн шинэ стандартыг ДЭЛХИЙ дахинд бий болгох явдал юм." width="540px"/>
             <IntroductionCard icon={vision} title="Алсын хараа" description=" Бид Монголдоо эхэлж, дэлхийн хэмжээнд хүрээгээ тэлэх зорилготой. Үүний хүрээнд бид бараа материалын менежментэд шинэчлэл авчрах, бизнесүүдийг чадавхжуулах, тогтвортой инноваци, өсөлтийг дэмжих RFID шийдлүүдийн тэргүүлэгч нь болохыг зорьж байна." width="540px"/>    
         </div>
         <div className="intro-card2">
-            <IntroductionCard icon={vision} title="Алсын хараа" description=" Бид Монголдоо эхэлж, дэлхийн хэмжээнд хүрээгээ тэлэх зорилготой. Үүний хүрээнд бид бараа материалын менежментэд шинэчлэл авчрах, бизнесүүдийг чадавхжуулах, тогтвортой инноваци, өсөлтийг дэмжих RFID шийдлүүдийн тэргүүлэгч нь болохыг зорьж байна." width="1170px"/>
+            <IntroductionCard icon={vision} title="Компаны тухай" description=" 2019 онд бид “desktop” хөрөнгийн удирдлагын системийг хөгжүүлсэнээр ажлын гараагаа эхлүүлж байсан түүхтэй. сүүлийн жилүүдэд Chipmo нь Cloud суурьтай, low-code платформ болон RFID шийдлийг ашиглан бий болсон бөгөөд одоогоор жижиглэн худалдааны дэлгүүр, төмөр зам, архивын модулиудыг зах зээлд нэвтрүүлсэн байна. Бид шинийг санаачилсаар байхын хэрээр үндсэн хөрөнгө, агуулах, уул уурхайн сэлбэг хэрэгсэл, багаж хэрэгсэл, үнэт эдлэл болон бүтээгдэхүүний тоо ширхэг олон  бусад салбаруудад шийдлээ нэвтрүүлж өргөжин тэлсээр байх болно. Манай дэвшилтэт RFID технологи нь бизнесүүдэд бараагаа үр ашигтай удирдах, хянах боломжийг олгож, илүү үнэ цэнэ бий болгож, өсөн тэлэх боломжийг олгох болно." width="1170px"/>
         </div>
         <div className="header"><h2>ҮҮСГЭН БАЙГУУЛАГЧИД</h2></div>
 

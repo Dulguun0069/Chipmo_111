@@ -1,6 +1,6 @@
 .header {
   box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
+  background-color: rgba(0, 0, 0, 0.7); 
   width: 100%;
   padding: 40px 62px;
 }
@@ -17,6 +17,7 @@
 }
 
 .logo {
+  margin-right : 40px;
   width: 128px;
   height: 28px;
 
