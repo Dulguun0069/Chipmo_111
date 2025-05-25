@@ -6,7 +6,6 @@ const Footer = () => {
       className="flex flex-wrap justify-between bg-black px-24 py-[35px] text-white max-md:gap-10 max-md:px-12 max-md:py-[35px] max-sm:flex-col max-sm:gap-8 max-sm:p-6"
       role="contentinfo"
     >
-      {/* Лого */}
       <div className="flex-shrink-0">
         <img
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/1b7a21e0d1266ac8bd50b462730f7c4d8fcc6b6e"
@@ -15,23 +14,19 @@ const Footer = () => {
         />
       </div>
 
-      
-        
-        <div className="flex flex-col gap-[5px] text-base">
-          <h3 className="text-[#E88524] text-xl font-bold mb-8 max-md:mb-6">Холбоо барих</h3>
-          <a href="mailto:info@chipmo.mn" className="hover:text-[#E88524] transition-colors">
-            info@chipmo.mn
-          </a>
-          <a href="tel:+97688108766" className="hover:text-[#E88524] transition-colors">
-            +97688108766
-          </a>
-          <a href="tel:+97699192846" className="hover:text-[#E88524] transition-colors">
-            +97699192846
-          </a>
-        </div>
-      
+      <div className="flex flex-col gap-[5px] text-base">
+        <h3 className="text-[#E88524] text-xl font-bold mb-8 max-md:mb-6">Холбоо барих</h3>
+        <a href="mailto:info@chipmo.mn" className="hover:text-[#E88524] transition-colors">
+          info@chipmo.mn
+        </a>
+        <a href="tel:+97688108766" className="hover:text-[#E88524] transition-colors">
+          +97688108766
+        </a>
+        <a href="tel:+97699192846" className="hover:text-[#E88524] transition-colors">
+          +97699192846
+        </a>
+      </div>
 
-      {/* Холбоосууд */}
       <nav aria-label="Үндсэн холбоосууд">
         <h3 className="text-[#E88524] text-xl font-bold mb-8 max-md:mb-6">Холбоосууд</h3>
         <ul className="flex flex-col gap-1.5 text-base text-center max-sm:items-center">
@@ -42,7 +37,6 @@ const Footer = () => {
         </ul>
       </nav>
 
-      {/* Сошиал сувгууд */}
       <div className="max-sm:items-center max-sm:text-center">
         <h3 className="text-[#E88524] text-xl font-bold mb-8 max-md:mb-6">Сошиал сувгууд</h3>
         <div className="flex flex-col gap-[19px]">

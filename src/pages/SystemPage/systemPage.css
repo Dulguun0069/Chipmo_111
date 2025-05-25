@@ -2,9 +2,9 @@
   width: 100%;
   height: 600px;
   background-image: url('../../assets/images/RFID Technology Design Illustration.png');
-  background-size: cover;       /* fills the area, may crop */
+  background-size: cover;       
   background-repeat: no-repeat;
-  background-position: center;  /* centers the image nicely */
+  background-position: center;  
 }
 
 

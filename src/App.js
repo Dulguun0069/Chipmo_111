@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import Contact from "./pages/Contact/Contact";
 import Header from "./components/Header/header"

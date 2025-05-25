@@ -32,10 +32,9 @@ const Calculator = () => {
         </div>
 
         <div className="space-y-6">
-          {/* Chip input */}
+          
          
-
-          {/* Reader input */}
+          
           <div>
   <label className="block text-sm font-medium mb-2 text-gray-300">Чипийн тоо:</label>
   <div className="flex items-center">
@@ -88,7 +87,7 @@ const Calculator = () => {
   <div className="text-xs text-gray-400 mt-1">Нэгжийн үнэ: ${unitPriceReader.toFixed(2)}</div>
 </div>
 
-          {/* Total */}
+         
           <div className="bg-blue-100 p-6 rounded-xl mt-8 text-center">
             <span className="text-gray-700 text-lg font-semibold">Нийт үнэ:</span>
             <div className="text-3xl font-bold text-blue-700 mt-2">${total.toFixed(2)}</div>
