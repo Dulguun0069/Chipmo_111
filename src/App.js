@@ -9,7 +9,7 @@ import Footer from "./components/Footer/footer";
 import AboutRFID from "./pages/AboutRFID/aboutRFID";
 import Product from "./pages/Products/Product"
 import Calculator from "./pages/Calculator/Calculator";
-import Login from "./pages/Login/Login";
+import './i18n';
 function App() {
   return (
     <>
@@ -22,7 +22,6 @@ function App() {
         <Route path="/aboutRFID" element={<AboutRFID/>}/>
         <Route path="/Product" element={<Product/>}/>
         <Route path="/RfidCalculator" element={<Calculator/>}/>
-        <Route path="/Login" element={<Login/>}/>
       </Routes>
       <Footer/>
     </Router>

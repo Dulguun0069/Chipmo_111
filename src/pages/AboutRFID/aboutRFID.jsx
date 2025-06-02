@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import { motion, useAnimation } from "framer-motion";
 import rfidbanner from "../../assets/images/rfidbanner.jpg";
 import rfidlogo from "../../assets/images/rfidlogo.png";
 import rfidproduct from "../../assets/images/r5.png";
@@ -13,345 +15,397 @@ import rfidUseCase4 from "../../assets/images/pic4.png";
 import rfidUseCase5 from "../../assets/images/pic5.png";
 import rfidUseCase6 from "../../assets/images/pic6.png"; 
 import "./AboutRFID.css";
+import { useTranslation } from 'react-i18next';
+import { t } from "i18next"; 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const fadeInLeft = {
+  hidden: { opacity: 0, x: -40 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const fadeInRight = {
+  hidden: { opacity: 0, x: 40 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { 
+    opacity: 1, 
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
+const Banner = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8 }}
+    >
+      <div
+  className="h-screen bg-center bg-cover"
+  style={{ backgroundImage: `url(${rfidbanner})` }}
+>
+</div>
+
+    </motion.div>
+  );
+};
+
+const AnimatedSection = ({ children, variants = fadeInUp, delay = 0 }) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={variants}
+      custom={delay}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+
+const TimelineItem = ({ year, title, content, side }) => {
+  return (
+    <div className={`timeline-entry ${side}`}>
+      <motion.div 
+        className="timeline-circle"
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 200 }}
+      >
+        {year}
+      </motion.div>
+      <motion.div
+        className="timeline-box"
+        initial={{ opacity: 0, x: side === 'left' ? -50 : 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <strong>{title}</strong><br />
+        {content}
+      </motion.div>
+    </div>
+  );
+};
+
+const RFIDCompare = () => {
+  const compareItems = [
+    {
+      left: t("about.radio"),
+      center: "TECHNOLOGY",
+      right: t("about.lazer")
+    },
+    {
+      left: t("about.ugugdul"),
+      center: "DATA STORAGE",
+      right: t("about.zuwhun")
+    },
+  ];
+
+  return (
+    <div className="rfid-compare-container">
+      <motion.div 
+        className="frame-66 combined-header"
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >  
+          <div className="text-wrapper-28">
+            <img
+            className="element-6"
+            alt="Element"
+            src="https://c.animaapp.com/maweg3z5O6b9fU/img/5115664-1.png"
+            loading="lazy"
+          />
+          <div className="aa" >RFID VS BARCODE</div>
+            
+            <img
+            className="barcode-2"
+            alt="Barcode"
+            src="https://c.animaapp.com/maweg3z5O6b9fU/img/barcode-2-1.png"
+            loading="lazy"
+          />
+            </div>
+        
+      </motion.div>
+
+      {compareItems.map((item, index) => (
+        <div key={index} className="rfid-compare-single">
+          <div className="rfid-col left">
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              {item.left}
+            </motion.p>
+          </div>
+          <div className="rfid-col center">
+            <motion.p
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              {item.center}
+            </motion.p>
+          </div>
+          <div className="rfid-col right">
+            <motion.p
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              {item.right}
+            </motion.p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default function AboutRFID() {
+  const { t } = useTranslation();
+  const timelineData = [
+    {
+      year: "1945",
+      title: t("about.2r"),
+      content: t("about.2r_sub"),
+      side: "left"
+    },
+    {
+      year: "1973",
+      title: t("about.3r"),
+      content: t("about.3r_sub"),
+      side: "right"
+    },
+    {
+      year: "1990",
+      title: t("about.4r"),
+      content: t("about.4r_sub"),
+      side: "left"
+    },
+    {
+      year: "2004",
+      title: t("about.5r"),
+      content: t("about.5r_sub"),
+      side: "right"
+    },
+    {
+      year: "2016",
+      title: t("about.6r"),
+      content: t("about.6r_sub"),
+      side: "left"
+    },
+    {
+      year: "2020",
+      title: t("about.7r"),
+      content: t("about.7r_sub"),
+      side: "right"
+    },
+    {
+      year: "2030",
+      title: t("about.8r"),
+      content: t("about.8r_sub"),
+      side: "left"
+    },
+  ];
+
   return (
-    <>
-      <div className="Container">
-        <div>
-          <img src={rfidbanner} alt="RFID Banner" className="rfid-banner" />
-        </div>
+    <div className="Container">
+      <Banner />
 
-        <div className="Container-text">
+      <div className="Container-text">
+        <AnimatedSection>
           <div className="Container1">
-            <div className="Title">RFID СУУРЬ ОЙЛГОЛТ</div>
-            <div className="whitetext">
-              RFID системийг ашиглахын тулд бүтээгдэхүүн бүрийг чип бүхий шошгожуулсан байх шаардлагатай. Антентай холбогдсон энэхүү чип нь бараа материалын төрөл бүрийн шошгонуудтай холбогдож, тухайн бүтээгдэхүүний өвөрмөц EPC буюу электрон бүтээгдэхүүний код болон бусад мэдээллийг уншж  хянах боломжтой байдаг.
-            </div>
-            <div className="whitetext">
-              RFID уншигч нь суурин эсвэл хөдөлгөөнт төхөөрөмж байхаас үл хамаарч эдгээр шошготой антенаар дамжуулан холбогдож,  хадгалагдсан мэдээллийг шошгоруу тодорхой хэмжээний энерги илгээж ажиллуулдаг ба ингэснээр  өгөгдлийг системрүү илгээх боломжтой болдог. Уншигчид дараа нь гүүр болж, шошгоны өгөгдлийг бизнесийн програмуудад ашиглах боломжтой болгодог.
-            </div>
-            <div className="lastwhitetext">
-              Системийн гол цөм нь хэрэглээний программ хангамж бөгөөд шошго, уншигч, өгөгдөл зэрэг бүх бүрэлдэхүүн хэсгүүдийг нэгтгэдэг. Энэхүү программ хангамж нь өгөгдлийг боловсруулахад чухал ач холбогдолтой бөгөөд бизнесүүдэд бараа материалыг үр дүнтэй удирдах, хянах боломжийг олгож, RFID системийн цогц үйл ажиллагааг асуудалгүй хангах боломжийг бий болгодог.
-
-            </div>
+            <motion.div 
+              className="Title"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              {t("about.title1")}
+            </motion.div>
+            <motion.div 
+              className="whitetext"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              {t("about.title1_sub")}
+            </motion.div>
+            <motion.div 
+              className="whitetext"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+            >
+              {t("about.title1_sub2")}
+            </motion.div>
+            <motion.div 
+              className="lastwhitetext"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8 }}
+            >
+              {t("about.title1_sub3")}
+            </motion.div>
           </div>
+        </AnimatedSection>
 
+        <AnimatedSection variants={fadeInUp} delay={0.2}>
           <div className="rfid-section">
-            <div className="rfid-left">
-              <div className="rfid-title">RFID ШИЙДЭЛ НЬ ДАРААХ ХЭСГҮҮДЭЭС БҮРДДЭГ :</div>
+            <motion.div 
+              className="rfid-left"
+              variants={fadeInLeft}
+            >
+              <div className="rfid-title">{t("about.title2")}</div>
               <ul className="rfid-list">
-                <li>RFID шошго</li>
-                <li>Уншигч төхөөрөмж</li>
-                <li>Антенна</li>
-                <li>Хэвлэгч төхөөрөмж</li>
-                <li>Хэрэглээний програм хангамж</li>
+                {[t("about.shoshgo"), t("about.unshigch"), t("about.antena"),t("about.hewlegch"),t("about.heregleeni"),].map((item, i) => (
+                  <motion.li 
+                    key={i}
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    variants={{
+                      hidden: { opacity: 0, x: -20 },
+                      visible: (i) => ({
+                        opacity: 1,
+                        x: 0,
+                        transition: { delay: i * 0.1 + 0.3 }
+                      })
+                    }}
+                  >
+                    {item}
+                  </motion.li>
+                ))}
               </ul>
-            </div>
-            <div className="rfid-right">
-              <img src={rfidlogo} alt="RFID Logo" className="rfid-logo" />
-            </div>
+            </motion.div>
+            <motion.div 
+              className="rfid-right"
+              variants={fadeInRight}
+            >
+              <img src={rfidlogo} alt="RFID Logo" className="rfid-logo" loading="lazy" />
+            </motion.div>
           </div>
-
-         
-          <div className="rfid-tag-block">
-            <div className="rfid-tag-image animate-fadeInRight">
-              <img src={rfidUseCase} alt="RFID tag explanation" />
-            </div>
-            <div className="rfid-tag-text animate-fadeInLeft">
-              <div className="secTitle">RFID ШОШГО</div>
-              <div className="secwhitetext">
-                RFID шошго нь богино дамжуулаг (IC) гэж нэрлэгддэг жижиг чипээс болон <br />
-                үүнтэй холбогдсон антеннаас бүрдэнэ. Энэхүү антенна нь ихэвчлэн <br />
-                цаасан дээр эсвэл PET (полиэтилен терефталат) биет дээр суурилагдсан <br />
-                байдаг. Чип болон антенны хослолыг inlay гэж нэрлэдэг. Дараа нь энэхүү <br />
-                inlay-ыг хэвлэмэл шошго болон түүний наалдамхай дэвсгэр хоёрын <br />
-                хооронд байрлуулж эсвэл зориулалтаас нь хамааран илүү бат бөх <br />
-                бүтэцтэй болгон ашигладаг.
-              </div>
-            </div>
-          </div>
-
-          <div className="rfid-tag-block2">
-            <div className="rfid-tag-image animate-fadeInLeft">
-              <img src={rfidUseCase1} alt="IC" />
-            </div>
-            <div className="rfid-tag-text2 animate-fadeInRight">
-              <div className="secTitle">TAG INTEGRATED CIRCUIT(IC)</div>
-              <div className="secwhitetext">
-                RFID шошго дахь чип буюу богино дамжуулагч (IC) нь шошгоны <br />
-                чадамд чухал үүрэгтэй байдаг. Энэхүү нь чип үйлдвэрлэгчээс <br />
-                олгосон шошго таних зорилготой TID буюу өвөрмөц серийн <br />
-                дугаараар урьдчилан програмчлагдсан байдаг. Үүнээс гадны чип нь <br />
-                бараа материалыг хянах болон удирдахад ашиглагддаг электрон <br />
-                бүтээгдэхүүний код (EPC) хадгалах тусгай санах ойтой байдаг.
-              </div>
-            </div>
-          </div>
-
-          <div className="rfid-tag-block">
-            <div className="rfid-tag-image animate-fadeInRight">
-              <img src={rfidUseCase2} alt="EPC" />
-            </div>
-            <div className="rfid-tag-text animate-fadeInLeft">
-              <div className="secTitle">ЭЛЕКТРОН БҮТЭЭГДЭХҮҮНИЙ КОД (EPC)</div>
-              <div className="secwhitetext">
-                RFID шошгоны чип дэх электрон бүтээгдэхүүний код (EPC) нь 24 HEX  <br />
-                тэмдэгтээс бүрдсэн 16-тын кодыг ашигладаг өвөрмөц таних тэмдэг юм.  <br />
-                цаасан дээр эсвэл PET (полиэтилен терефталат) биет дээр суурилагдсан <br />
-                төрөл, өвөрмөц серийн дугаар зэрэг өөрийн хүссэн дэлгэрэнгүй ү <br />
-                мэдээллийг хадгалж болно. Энэхүү код нь бараа материалыг мэдээллийн <br />
-                сантай холбож, агуулахын хяналт, ложистикийн үйл явцыг илүү үр  <br />
-                ашигтай болгох замаар дэлхий даяар хянах, удирдахад ашигладаг.
-              </div>
-            </div>
-          </div>
-
-          <div className="rfid-tag-block2">
-            <div className="rfid-tag-image animate-fadeInLeft">
-              <img src={rfidUseCase3} alt="RFID tag antenna" />
-            </div>
-            <div className="rfid-tag-text2 animate-fadeInRight">
-              <div className="secTitle">RFID ШОШГОНЫ АНТЕННА</div>
-              <div className="secwhitetext">
-                RFID шошгон дээрх антенна нь чипийг ажиллуулахын тулд энерги <br />
-                дамжуулах үүрэгтэй. Антенна нь том байх тусам илүү их энерги <br />
-                цуглуулж, унших зайг хол байлгадаг. Антеннүүд нь тодорхой <br />
-                хэрэгцээнээс хамаарч өөр өөр байж бөгөөд зарим нь тодорхой <br />
-                давтамжтай байх эсвэл шингэн, металл зэрэгт материалд <br />
-                зориулагдсан байдаг. Тэдгээрийн дээр нь мэдээлэл хэвлэх эсвэл <br />
-                код шарах зэрэг шаардлагаас хамаарч янз бүрийн хэлбэр, хэмжээ <br />
-                эсхүл материалаар бүтээгдэж болно. Нэг антеннтай шошго нь дохио <br />
-                хүлээн авах боломжгүй ба “ул уншигч орчин”-той байж болох ч хос <br />
-                антеннтай шошго нь энэ төрлийн бүсийг арилгаж, найдвартай <br />
-                ажиллагааг хангаж өгдөг.
-              </div>
-            </div>
-          </div>
-
-          <div className="rfid-tag-block">
-            <div className="rfid-tag-image animate-fadeInRight">
-              <img src={rfidUseCase4} alt="RFID scanner" />
-            </div>
-            <div className="rfid-tag-text animate-fadeInLeft">
-              <div className="secTitle">RFID УНШИГЧ ТӨХӨӨРӨМЖ</div>
-              <div className="secwhitetext">
-                RFID уншигч нь шошгоны өгөгдлийг байгууллагын программ хангамжтай <br />
-                холбоход маш чухал үүрэгтэй. Үүгээр тооллого, хайлт, анхан шатны өгөгдөл <br />
-                дамжуулах гэх мэт маш чухал ажлуудыг ойр орчимын шошготой холбогдож <br />
-                гүйцэтгэдэг. Chainway брэндийн C72, R5, UR4A, R3, M8N R20 зэрэг уншигчид нь
-                өндөр чанар, найдвартай ажиллагаатай гэдгээрээ дэлхийн тэргүүлэгчдийн
-                эгнээнд зүй ёсоор ордог. Эдгээр уншигчдыг хослуулсанаар төрөл бүрийн
-                бизнесийн орчинд тулгарах асуудлуудыг цогцоор шийдвэрлэх чадвах бөгөөд
-                их хэмжээний бараа материалыг ямар ч байгууллага ашиглах боломжтой юм.
-              </div>
-            </div>
-          </div>
+        </AnimatedSection>
+        <AnimatedSection>
           <div className="rfid-reader-grid">
-          <div className="reader-card">
-            <img src={rfidproduct} alt="R5" className="reader-img" />
-            <div className="reader-label">R5 БУГУЙН УНШИГЧ</div>
+            {[
+              { img: rfidproduct, label: t("about.r5") },
+              { img: rfidproduct1, label: t("about.ura4") },
+              { img: rfidproduct2, label: t("about.r20") },
+              { img: rfidproduct3, label: t("about.r3") }
+            ].map((item, index) => (
+              <motion.div
+  key={index}
+  className="reader-card"
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  whileHover={{ scale: 1.05, y: -8 }}
+  viewport={{ once: true }}
+  transition={{ delay: index * 0.15 }}
+>
+  <img src={item.img} alt={`Reader ${index}`} className="reader-img" loading="lazy" />
+  <div className="reader-label">{item.label}</div>
+</motion.div>
+
+            ))}
           </div>
-          <div className="reader-card">
-            <img src={rfidproduct1} alt="URA4" className="reader-img" />
-            <div className="reader-label">URA4 СУУРИН УНШИГЧ</div>
-          </div>
-          <div className="reader-card">
-            <img src={rfidproduct2} alt="R20" className="reader-img" />
-            <div className="reader-label">R20 ЗҮҮДЭГ УНШИГЧ</div>
-          </div>
-          <div className="reader-card">
-            <img src={rfidproduct3} alt="R3" className="reader-img" />
-            <div className="reader-label">R3 ШИРЭЭНИЙ УНШИГЧ</div>
+        </AnimatedSection>
+
+        <RFIDCompare />
+
+        <div className="rfid-advantage-block">
+          <div className="rfid-advantage-text">
+            <div className="rfid-advantage-title">{t("about.dawuu")}</div>
+            <div className="rfid-advantage-image">
+              <img src={rfidUseCase} alt="RFID Advantage" loading="lazy" />
+            </div>
+            <div>
+             {t("about.dawuu_sub")}
+            </div>
           </div>
         </div>
 
-        <div className="rfid-tag-block2">
-            <div className="rfid-tag-image animate-fadeInLeft">
-              <img src={rfidUseCase5} alt="RFID tag antenna" />
-            </div>
-            <div className="rfid-tag-text2 animate-fadeInRight">
-              <div className="secTitle">RFID СУУРИН УНШИГЧЫН АНТЕННА</div>
-              <div className="secwhitetext">
-                RFID шошгон дээрх антенна нь чипийг ажиллуулахын тулд энерги <br />
-                дамжуулах үүрэгтэй. Антенна нь том байх тусам илүү их энерги <br />
-                цуглуулж, унших зайг хол байлгадаг. Антеннүүд нь тодорхой <br />
-                хэрэгцээнээс хамаарч өөр өөр байж бөгөөд зарим нь тодорхой <br />
-                давтамжтай байх эсвэл шингэн, металл зэрэгт материалд <br />
-                зориулагдсан байдаг. Тэдгээрийн дээр нь мэдээлэл хэвлэх эсвэл <br />
-                код шарах зэрэг шаардлагаас хамаарч янз бүрийн хэлбэр, хэмжээ <br />
-                эсхүл материалаар бүтээгдэж болно. Нэг антеннтай шошго нь дохио <br />
-                хүлээн авах боломжгүй ба “ул уншигч орчин”-той байж болох ч хос <br />
-                антеннтай шошго нь энэ төрлийн бүсийг арилгаж, найдвартай <br />
-                ажиллагааг хангаж өгдөг.
-              </div>
-            </div>
-          </div>
+        <div style={{ textAlign: "center" }}>
+          <div className="rfid-title1">{t("about.tuuh")}</div>
+        </div>
 
-          <div className="rfid-tag-block">
-            <div className="rfid-tag-image animate-fadeInRight">
-              <img src={rfidUseCase6} alt="RFID scanner" />
-            </div>
-            <div className="rfid-tag-text animate-fadeInLeft">
-              <div className="secTitle">RFID ENCODING PRINTER</div>
-              <div className="secwhitetext">
-                RFID уншигч нь шошгоны өгөгдлийг байгууллагын программ хангамжтай <br />
-                холбоход маш чухал үүрэгтэй. Үүгээр тооллого, хайлт, анхан шатны өгөгдөл <br />
-                дамжуулах гэх мэт маш чухал ажлуудыг ойр орчимын шошготой холбогдож <br />
-                гүйцэтгэдэг. Chainway брэндийн C72, R5, UR4A, R3, M8N R20 зэрэг уншигчид нь
-                өндөр чанар, найдвартай ажиллагаатай гэдгээрээ дэлхийн тэргүүлэгчдийн
-                эгнээнд зүй ёсоор ордог. Эдгээр уншигчдыг хослуулсанаар төрөл бүрийн
-                бизнесийн орчинд тулгарах асуудлуудыг цогцоор шийдвэрлэх чадвах бөгөөд
-                их хэмжээний бараа материалыг ямар ч байгууллага ашиглах боломжтой юм.
-              </div>
-            </div>
-          </div>
-          <div className="rfid-compare-container">
-  <div className="frame-66 combined-header">
-    <div className="frame-67">
-      <img
-        className="element-6"
-        alt="Element"
-        src="https://c.animaapp.com/maweg3z5O6b9fU/img/5115664-1.png"
-      />
-      <div className="text-wrapper-28">RFID</div>
-    </div>
-
-    <div className="text-wrapper-29">VS</div>
-
-    <div className="frame-68">
-      <div className="text-wrapper-30">BARCODE</div>
-      <img
-        className="barcode-2"
-        alt="Barcode"
-        src="https://c.animaapp.com/maweg3z5O6b9fU/img/barcode-2-1.png"
-      />
-    </div>
-  </div>
-
-  <div className="rfid-compare-table">
-    <div className="rfid-compare-row">
-      <div className="rfid-col left">РАДИО ДОЛГИОН</div>
-      <div className="rfid-col center">TECHNOLOGY</div>
-      <div className="rfid-col right">өгөгдлийн дүрслэл ба лазер сканнер</div>
-    </div>
-    <div className="rfid-compare-row">
-      <div className="rfid-col left">ИХ ХЭМЖЭЭНИЙ ӨГӨГДЛИЙГ ХАДГАЛАХ, ДАМЖУУЛАХ БОЛОМЖТОЙ.</div>
-      <div className="rfid-col center">DATA STORAGE</div>
-      <div className="rfid-col right">ЗӨВХӨН ХЯЗГААРЛАГДМАЛ ХЭМЖЭЭНИЙ ӨГӨГДӨЛ ХАДГАЛАХ БОЛОМЖТОЙ</div>
-    </div>
-    <div className="rfid-compare-row">
-      <div className="rfid-col left">ШУУД ХАРАХ ШААРДЛАГАГҮЙГЭЭР УНШИХ БОЛОМЖТОЙ</div>
-      <div className="rfid-col center">READABILITY</div>
-      <div className="rfid-col right">УНШИХЫН ТУЛД СКАННЕРЫН ШУУД ХАРАГДАХ ХЭСЭГТ БАЙХ ШААРДЛАГАТАЙ</div>
-    </div>
-    <div className="rfid-compare-row">
-      <div className="rfid-col left">АЛСЫН ЗАЙНААС УНШИХ БОЛОМЖТОЙ</div>
-      <div className="rfid-col center">RANGE</div>
-      <div className="rfid-col right">СКАННЕРТАЙ ОЙРХОН БАЙХ ШААРДЛАГАТАЙ</div>
-    </div>
-    <div className="rfid-compare-row">
-      <div className="rfid-col left">УДААН ЭДЭЛГЭЭТЭЙ, ГЭМТЭЛД ТЭСВЭРТЭЙ</div>
-      <div className="rfid-col center">DURABILITY</div>
-      <div className="rfid-col right">ЭЛЭГДЭЛ, УРАГДСАНЫ УЛМААС АМАРХАН ГЭМТЭХ ЭСВЭЛ УНШИХ БОЛОМЖГҮЙ</div>
-    </div>
-    <div className="rfid-compare-row">
-      <div className="rfid-col left">АНХНЫ ӨРТӨГ ӨНДӨР</div>
-      <div className="rfid-col center">COST</div>
-      <div className="rfid-col right">БОЛОМЖИЙН ҮНЭ, ХЭРЭГЖҮҮЛЭХЭД ХЯЛБАР</div>
-    </div>
-    <div className="rfid-compare-row">
-      <div className="rfid-col left">ОБЪЕКТ ДОТОР СУУЛГАЖ ЭСВЭЛ БҮТЭЭГДЭХҮҮНИЙ САВЛАГААНД НЭГТГЭЖ БОЛНО</div>
-      <div className="rfid-col center">FLEXIBILITY</div>
-      <div className="rfid-col right">ГАДАРГУУ ДЭЭР ХЭВЛЭСЭН БӨГӨӨД БАЙРЛУУЛАХАД ХАНГАЛТТАЙ ЗАЙ ШААРДЛАГАТАЙ</div>
-    </div>
-  </div>
-</div>
-
-<div className="rfid-advantage-block">
-  <div className="rfid-advantage-text">
-    <div className="rfid-advantage-title">RFID-ЫН ДАВУУ ТАЛ</div>
-    <div>
-      Бар код болон бусад автомат таних технологиудаас ялгаатай нь RFID шошго нь өвөрмөц,
-      хуулагдах боломжгүй серийн дугаартай байдаг бөгөөд автоматаар, нэгэн зэрэг, хүний
-      оролцоо шаардлагагүйгээр мэдээллийг таних боломжтой. Бүрэн хэрэгжсэн тохиолдолд RFID
-      технологи нь бодит цагийн горимоор дэлхийн хаанаас бараа материалд хяналт тавих,
-      үлдэгдлээ шууд шалгах, аюулгүй байдлын өндөр зэрэглэлийн хамгаалалттай болж улмаар
-      борлуулалт, үр ашиг, мэдээллийн оновчтой байдал, мэдээлэлд үндэслэсэн шийдвэр гаргалт
-      зэргийг шинэ түвшинд хүргэх боломжтой юм.
-    </div>
-  </div>
-  <div className="rfid-advantage-image">
-    <img src={rfidUseCase} alt="RFID Advantage" />
-  </div>
-</div>
-    <div style={{ textAlign: "center" }}>
-  <div className="rfid-title1">RFID ТЕХНОЛОГИЙН ТҮҮХ</div>
-</div>
-
-<div className="rfid-timeline">
-  <div className="timeline-line"></div>
-
-  <div className="timeline-entry left">
-    <div className="timeline-circle">1945</div>
-    <div className="timeline-box">
-      <strong>Анхны RFID чип</strong><br />
-      Mario W. Cardullo гэх АНУ-ын иргэн анхны идэвхтэй RFID чипний патентыг эзэмшжээ.
-    </div>
-  </div>
-
-  <div className="timeline-entry right">
-    <div className="timeline-circle">1973</div>
-    <div className="timeline-box">
-      <strong>Дэлхийн 2-р дайн</strong><br />
-      Дайны үеэр Британий нисгэгчдийн байршлыг олж тогтоох зориулалттай RFID системийг үүсгэв.
-    </div>
-  </div>
-
-  <div className="timeline-entry left">
-    <div className="timeline-circle">1990</div>
-    <div className="timeline-box">
-      <strong>Wal-Mart кейс</strong><br />
-      АНУ-ын Wal-mart дэлгүүр анхны RFID програмд 500 сая долларын хөрөнгө оруулав.
-    </div>
-  </div>
-
-  <div className="timeline-entry right">
-    <div className="timeline-circle">2004</div>
-    <div className="timeline-box">
-      <strong>UHF буюу өндөр давтамжтай RFID</strong><br />
-      6 метр хүртэлх унших зайтай UHF уншигч зохион бүтээгдэв.
-    </div>
-  </div>
-
-  <div className="timeline-entry left">
-    <div className="timeline-circle">2016</div>
-    <div className="timeline-box">
-      <strong>Нэг чипний ашиг</strong><br />
-      ROI 200%-д хүрэв. RFID-ийн үнэ цэнэ нэмэгдэв.
-    </div>
-  </div>
-
-  <div className="timeline-entry right">
-    <div className="timeline-circle">2020</div>
-    <div className="timeline-box">
-      <strong>Үнэ бууралт</strong><br />
-      Үйлдвэрлэгчид 30%-иар хямд RFID шошго гаргаж эхлэв.
-    </div>
-  </div>
-
-  <div className="timeline-entry left">
-    <div className="timeline-circle">2030</div>
-    <div className="timeline-box">
-      <strong>RFID зах зээл</strong><br />
-      2030 он гэхэд 31.5 тэрбум ам.долларын хандалттай болно.
-    </div>
-  </div>
-</div>
-
-
+        <div className="rfid-timeline">
+          <div className="timeline-line"></div>
+          {timelineData.map((item, index) => (
+            <TimelineItem
+              key={index}
+              year={item.year}
+              title={item.title}
+              content={item.content}
+              side={item.side}
+            />
+          ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
