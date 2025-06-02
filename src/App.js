@@ -10,6 +10,8 @@ import AboutRFID from "./pages/AboutRFID/aboutRFID";
 import Product from "./pages/Products/Product"
 import Calculator from "./pages/Calculator/Calculator";
 import './i18n';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 function App() {
   return (
     <>

@@ -29,12 +29,7 @@ import { Card, CardContent , CardHeader,CardFooter, CardTitle , CardDescription}
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTranslation } from 'react-i18next';
-const stats = [
-  { value: "100+", label: t("homepage.stats.partners") },
-  { value: "50+", label: t("homepage.stats.projects") },
-  { value: "10+", label: t("homepage.stats.services") },
-  { value: "24/7", label: t("homepage.stats.support") },
-];
+
 
 
 const AnimatedSection = ({ children, from = "left", delay = 0 }) => {
@@ -75,7 +70,14 @@ const AnimatedSection = ({ children, from = "left", delay = 0 }) => {
 
 export default function HomePage() {
     const { t } = useTranslation();
+    const stats = [
+  { value: "100+", label: t("homepage.partners") },
+  { value: "50+", label: t("homepage.projects") },
+  { value: "10+", label: t("homepage.services") },
+  { value: "24/7", label: t("homepage.support") },
+];
   return (
+    
     <>
       <section className="relative w-full">
         <div className="w-full bg-[#1a1a1a]">
